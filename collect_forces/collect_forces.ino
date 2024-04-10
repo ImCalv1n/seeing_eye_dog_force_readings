@@ -21,7 +21,7 @@ String UNITS = "g";
 /*
     Set amount of delay between readings (ms).
 */
-int DELAY = 5000;
+int DELAY = 50;
 
 // TODO: file name
 String OUT_FILE = "";
@@ -33,6 +33,10 @@ void setup(){
     
     Serial.println("SEEING EYE FORCE DATA COLLECION");
 
+    Serial.println("Scale setup in 5 seconds");
+
+    delay(5000);
+
     Serial.println("Setting up scale...");
 
     scale.begin(LOADCELL_DAT_PIN, LOADCELL_CLK_PIN);
@@ -42,7 +46,7 @@ void setup(){
     scale.set_scale(CAL_FACTOR);
     scale.tare();
 
-    Serial.println("READINGS:");
+    Serial.println("READINGS, GRAMS:");
 
     // TODO: check if file name given, if not, make unique file
 
@@ -50,24 +54,29 @@ void setup(){
 
 void loop(){
 
-    Serial.print("Reading ");
-    Serial.print(iterator);
-    Serial.print(": ");
+    // Serial.print("Reading ");
+    // Serial.print(iterator);
+    // Serial.print(": ");
 
     // TODO: decide if we should take an average here
     float reading = scale.get_units();
 
-    Serial.print(reading);
-    Serial.println(UNITS);
+    Serial.println(reading * -1);
+    // Serial.println(UNITS);
 
     // TODO: print value to file
 
     // TODO: is this worth it with low delay
-    scale.power_down();
+    // scale.power_down();
     delay(DELAY);
-    scale.power_up();
+    // scale.power_up();
 
     iterator++;
+
+    // testing
+    // if(iterator == 200){
+    //   exit(0);
+    // }
 
     // TODO: exit condition?
 
