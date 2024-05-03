@@ -15,13 +15,15 @@ HX711 scale;
     Values by output:
         grams: 155.28
 */
-float CAL_FACTOR = 155.28;
-String UNITS = "g";
+// float CAL_FACTOR = 155.28;
+float CAL_FACTOR = -145943.860;
+// String UNITS = "g";
+String UNITS = "kg";
 
 /*
     Set amount of delay between readings (ms).
 */
-int DELAY = 50;
+int DELAY = 100;
 
 // TODO: file name
 String OUT_FILE = "";
@@ -46,7 +48,7 @@ void setup(){
     scale.set_scale(CAL_FACTOR);
     scale.tare();
 
-    Serial.println("READINGS, GRAMS:");
+    Serial.println("READINGS, KGs:");
 
     // TODO: check if file name given, if not, make unique file
 
@@ -61,7 +63,9 @@ void loop(){
     // TODO: decide if we should take an average here
     float reading = scale.get_units();
 
-    Serial.println(reading * -1);
+    Serial.print(reading);
+    Serial.print(" ");
+    Serial.println(millis());
     // Serial.println(UNITS);
 
     // TODO: print value to file
